@@ -15,10 +15,11 @@
 
 ## 效果示例
 ---
+### 原文
 ![](example/example1.jpg)
 ---
+### 翻译
 ![](example/example2.jpg)
----
 ![](example/example3.jpg)
 ---
 
