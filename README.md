@@ -13,6 +13,11 @@
 - **💻 现代化界面** - 基于Next.js的美观Web界面
 - **🔌 分离式架构** - 前后端分离，支持分布式部署
 
+## 效果示例
+![](example1.jpg)
+![](example2.jpg)
+![](example3.jpg)
+
 ## 环境要求
 
 - 操作系统：Windows 10/11、Linux、macOS
