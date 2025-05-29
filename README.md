@@ -13,6 +13,14 @@
 - **💻 现代化界面** - 基于Next.js的美观Web界面
 - **🔌 分离式架构** - 前后端分离，支持分布式部署
 
+## 效果预览
+### 公式
+![example1](example/example1.jpeg)
+### 图片
+![example1](example/example2.jpeg)
+### 网站
+![example1](example/example3.png)
+
 ## 环境要求
 
 - 操作系统：Windows 10/11、Linux、macOS
@@ -37,6 +45,7 @@
    ```
 
 2. 安装 Node.js 环境
+
    - 访问 [Node.js官网](https://nodejs.org/) 下载并安装 LTS 版本
    - 验证安装：`node --version` 和 `npm --version`
 
