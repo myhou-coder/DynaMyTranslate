@@ -14,13 +14,20 @@
 - **🔌 分离式架构** - 前后端分离，支持分布式部署
 
 ## 效果示例
+### 公式
+
+![example1](example/example1.jpeg)
+
 ---
-### 原文
-![](example/example1.jpg)
+### 图片
+
+![example2](example/example2.jpeg)
+
 ---
-### 翻译
-![](example/example2.jpg)
-![](example/example3.jpg)
+### 网站
+
+![example3](example/example3.png)
+
 ---
 
 ## 环境要求
