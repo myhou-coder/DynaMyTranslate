@@ -13,13 +13,15 @@
 - **💻 现代化界面** - 基于Next.js的美观Web界面
 - **🔌 分离式架构** - 前后端分离，支持分布式部署
 
-## 效果预览
-### 公式
-![example1](example/example1.jpeg)
-### 图片
-![example1](example/example2.jpeg)
-### 网站
-![example1](example/example3.png)
+## 效果示例
+---
+### 原文
+![](example/example1.jpg)
+---
+### 翻译
+![](example/example2.jpg)
+![](example/example3.jpg)
+---
 
 ## 环境要求
 
@@ -45,7 +47,6 @@
    ```
 
 2. 安装 Node.js 环境
-
    - 访问 [Node.js官网](https://nodejs.org/) 下载并安装 LTS 版本
    - 验证安装：`node --version` 和 `npm --version`
 
@@ -156,7 +157,6 @@
 - 建议使用较新版本的浏览器（Chrome、Firefox、Edge等）
 - 大型PDF文件处理可能需要较长时间，请耐心等待
 - 确保端口3000和5000未被其他程序占用
-- 请妥善保管 DeepSeek API Key，不要将其提交到代码仓库
 
 ## 额外说明
 如果要部署到有公网ip的服务器上，需要同时将前后端的http://localhost地址改成公网服务器地址
