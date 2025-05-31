@@ -18,12 +18,15 @@ def save_markdown(output_md: str, file_path: str) -> None:
         file.write(output_md)
 
 
-def main_workflow(input_md: str, config_short: Dict,config_long: Dict) -> str:
+def main_workflow(input_md: str, config_short: Dict, config_long: Dict, source_language: str = "en", target_language: str = "zh-CN") -> str:
     """
     核心工作流函数，完成从输入Markdown文本到翻译后Markdown文本的完整流程。
 
     :param input_md: 输入的Markdown文本
-    :param config: 配置参数，包含API提供者等信息
+    :param config_short: 短文本配置参数，包含API提供者等信息
+    :param config_long: 长文本配置参数，包含API提供者等信息
+    :param source_language: 原文语言
+    :param target_language: 目标语言
     """
     # 预处理阶段
     ast_blocks = pre_process.markdown_parser(input_md)
@@ -60,13 +63,13 @@ def main_workflow(input_md: str, config_short: Dict,config_long: Dict) -> str:
         if len(tokens)<1000:
             print(block["content"])
             print("当前翻译模型：", config_short['modelname'], "\ntokens:", len(tokens))
-            result = client_short.translate(block["content"],domain)
+            result = client_short.translate(block["content"], domain, source_language, target_language)
             print(result)
             translated.append({**block, "content": result})
         else:
             print(block["content"])
             print("当前翻译模型：", config_long['modelname'], "\ntokens:", len(tokens))
-            result = client_long.translate(block["content"],domain)
+            result = client_long.translate(block["content"], domain, source_language, target_language)
             print(result)
             translated.append({**block, "content": result})
 

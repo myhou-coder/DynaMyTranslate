@@ -1,0 +1,6 @@
+{
+  "backend_host": "0.0.0.0",
+  "backend_port": 5000,
+  "frontend_port": 3000,
+  "tailscale_ip": "100.88.126.48"
+} 

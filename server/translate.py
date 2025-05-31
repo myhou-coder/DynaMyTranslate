@@ -8,11 +8,13 @@ class APIClient:
     统一接口的翻译客户端基类。
     """
 
-    def translate(self, text: str, context: Optional[str] = None) -> str:
+    def translate(self, text: str, context: Optional[str] = None, source_language: str = "en", target_language: str = "zh-CN") -> str:
         """
         翻译文本。
         :param text: 待翻译的文本
         :param context: 上下文提示
+        :param source_language: 原文语言
+        :param target_language: 目标语言
         :return: 翻译后的文本
         """
         raise NotImplementedError
@@ -31,15 +33,31 @@ class SiliconFlowClient(APIClient):
         self.maxtoken=config['maxtoken']
 
 
-    def translate(self, text: str, context: Optional[str] = None) -> str:
+    def translate(self, text: str, context: Optional[str] = None, source_language: str = "en", target_language: str = "zh-CN") -> str:
         """
         使用SiliconFlow API翻译文本 [^1][^2]。
         """
         import requests
 
+        # 创建语言映射
+        language_names = {
+            "en": "英文",
+            "zh-CN": "中文",
+            "ja": "日文",
+            "ko": "韩文",
+            "fr": "法文",
+            "de": "德文",
+            "es": "西班牙文",
+            "ru": "俄文"
+        }
+
+        source_lang_name = language_names.get(source_language, "英文")
+        target_lang_name = language_names.get(target_language, "中文")
+
         # 添加提示词
         prompt = (
-            "请接收含有复杂数学公式、学术表格的英文markdown论文，检查公式以及表格的格式是否正确，并只输出译文，不要有其他说明。"
+            f"请接收含有复杂数学公式、学术表格的{source_lang_name}markdown论文，检查公式以及表格的格式是否正确，"
+            f"并将其翻译为{target_lang_name}，只输出译文，不要有其他说明。"
             f"\n\n原文：{text}"
         )
 
@@ -114,20 +132,37 @@ class DeepSeekClient(APIClient):
         except Exception as e:
                 return {"domain": "general"}  # 失败时返回通用领域
 
-    def translate(self, text: str, context: Optional[str] = None) -> str:
+    def translate(self, text: str, context: Optional[str] = None, source_language: str = "en", target_language: str = "zh-CN") -> str:
         """使用DeepSeek API翻译文本（保留原始提示词和参数风格）"""
         retry_count_1 = 0
         retry_count_2 = 0
         errors_1 = []
         errors_2 = []
-        prompt="""
+        
+        # 创建语言映射
+        language_names = {
+            "en": "英文",
+            "zh-CN": "中文",
+            "ja": "日文",
+            "ko": "韩文",
+            "fr": "法文",
+            "de": "德文",
+            "es": "西班牙文",
+            "ru": "俄文"
+        }
+
+        source_lang_name = language_names.get(source_language, "英文")
+        target_lang_name = language_names.get(target_language, "中文")
+        
+        prompt=f"""
         ## 角色定位
-        高度精准的英中学术文本翻译引擎，专注将{context}英文文献翻译为中文、学术文档格式校对与完整性修复
+        高度精准的{source_lang_name}-{target_lang_name}学术文本翻译引擎，专注将{context or "通用领域"}{source_lang_name}文献翻译为{target_lang_name}、学术文档格式校对与完整性修复
         
         ## 翻译规范
         - 保证原文意思没有改变，不要删减原文内容
         - 确保学术用语准确
         - 参考文献部分不翻译
+        - 从{source_lang_name}翻译为{target_lang_name}
         
         ## 输出规范（特别重要，必须遵守）
         1. 保证输出内容仅有纯净的翻译内容，加括号的解释内容也不行
@@ -186,7 +221,7 @@ class DeepSeekClient(APIClient):
                         model="deepseek-chat",
                         messages=[
                             {"role": "system",
-                             "content": """判断译文是否完整无删减地翻译了原文的内容或者是否存在多余内容（不能有多余的注释等），如果翻译完整且无多余内容，输出True，否则False，仅返回JSON：{"is_valid": bool}"""},
+                             "content": f"""判断译文是否完整无删减地翻译了原文的内容或者是否存在多余内容（不能有多余的注释等），如果翻译完整且无多余内容，输出True，否则False，仅返回JSON：{{"is_valid": bool}}。原文是{source_lang_name}，译文应该是{target_lang_name}。"""},
                             {"role": "user",
                              "content": f"原文：\n{text}\n\n译文：\n{response.choices[0].message.content}"}
                         ],
