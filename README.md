@@ -75,7 +75,6 @@
 3. 安装依赖
    ```bash
    # 安装后端依赖
-   cd server
    pip install -r requirements.txt
    
    # 安装前端依赖
