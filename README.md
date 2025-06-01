@@ -118,7 +118,7 @@ python app.py
 
 # 终端2：启动前端
 cd front
-npm run dev
+npm run build && npm run start -- -H 0.0.0.0 -p 3000
 ```
 
 ### 5. 访问应用
